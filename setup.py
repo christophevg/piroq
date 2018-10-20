@@ -1,0 +1,61 @@
+import codecs
+import os
+import re
+from setuptools import find_packages
+from setuptools import setup
+
+NAME             = "piroq"
+AUTHOR           = "Christophe VG"
+AUTHOR_EMAIL     = "contact@christophe.vg"
+DESCRIPTION      = "PiroQ: Turns a Raspberry Pi into a Heroku-like execution environment."
+LONG_DESCRIPTION = "See https://github.com/christophevg/piroq for more information and examples."
+LICENSE          = "MIT"
+KEYWORDS         = "framework cloud raspberrypi procfile"
+URL              = "https://github.com/christophevg/piroq"
+CLASSIFIERS      = [
+    "Environment :: Console",
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "Topic :: Software Development",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 2",
+    "Programming Language :: Python :: 2.6",
+    "Programming Language :: Python :: 2.7",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.3",
+    "Programming Language :: Python :: 3.4",
+    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.6",
+]
+INSTALL_REQUIRES = [ "honcho" ]
+ENTRY_POINTS     = {
+  "console_scripts": [
+    "piroq=piroq.command:main"
+  ]
+}
+
+HERE = os.path.dirname(__file__)
+def read(*path):
+  with codecs.open(os.path.join(HERE, *path), encoding="utf-8") as fp:
+    return fp.read()
+
+VERSION = re.search(
+  r'^__version__ = [\'"]([^\'"]*)[\'"]',
+  read("honcho/__init__.py")
+).group(1)
+
+if __name__ == "__main__":
+  setup(name=NAME,
+        version=VERSION,
+        packages=find_packages(),
+        author=AUTHOR,
+        description=DESCRIPTION,
+        long_description=LONG_DESCRIPTION,
+        license=LICENSE,
+        keywords=KEYWORDS,
+        url=URL,
+        classifiers=CLASSIFIERS,
+        install_requires=INSTALL_REQUIRES,
+        entry_points=ENTRY_POINTS)
