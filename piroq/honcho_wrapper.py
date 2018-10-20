@@ -36,18 +36,18 @@ def start(app_root='.', port=None, command='start', concurrency=None, env='.env'
   port = _choose_port(port, env)
 
   if processes:
-    processes = compat.OrderedDict()
+    processes_to_run = compat.OrderedDict()
     for name in processes:
       try:
-        processes[name] = procfile.processes[name]
+        processes_to_run[name] = procfile.processes[name]
       except KeyError:
         raise CommandError("Process type '{0}' does not exist in Procfile".format(name))
   else:
-    processes = procfile.processes
+    processes_to_run = procfile.processes
 
   manager = Manager(Printer(sys.stdout, colour=(not no_colour), prefix=(not no_prefix)))
 
-  for p in environ.expand_processes(processes, concurrency=concurrency,	env=env, quiet=quiet,	port=port):
+  for p in environ.expand_processes(processes_to_run, concurrency=concurrency,	env=env, quiet=quiet,	port=port):
     e = os.environ.copy()
     e.update(p.env)
     manager.add_process(p.name, p.cmd, quiet=p.quiet, env=e)
