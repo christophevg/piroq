@@ -8,7 +8,7 @@ I've only just started working on this and I'm literally exploring my own code a
 
 ## Rationale
 
-For some time now, I've been settling on Python as my preferred general-purpose language, along with its vast amount of very nice modules and frameworks. Along with Python, I really like Heroku as an incredible simple deployment target. Besides Heroku, I also heavily use Raspberry Pi nodes. Most of the time the same code runs on Heroku and on a Pi, so I ended up with a quest to make deployment on a Pi as identical to the experience on Heroku. Hence PiroQ - pronouced like (He)roku ;-)
+For some time now, I've been settling on Python as my preferred general-purpose language, along with its vast amount of very nice modules and frameworks. Along with Python, I really like Heroku as an incredible simple deployment target. Besides Heroku, I also heavily use Raspberry Pi nodes. Most of the time the same code runs on Heroku and on a Pi, so I ended up with a quest to make deployment on a Pi as identical to the experience on Heroku. Hence PiroQ - pronounced like (He)roku ;-)
 
 ## Philosophy
 
