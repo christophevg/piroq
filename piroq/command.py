@@ -1,5 +1,4 @@
-import honcho_wrapper
+from piroq.service import Manager
 
 def main():
-  result = honcho_wrapper.start()
-  print("honcho ended with " + str(result))
+  Manager().run()
