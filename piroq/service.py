@@ -1,34 +1,41 @@
+import os
 import time
-import json
-import signal
 import logging
-from threading import Thread
 
 from servicefactory import Service
 
-from honcho import Honcho
+from piroq.app import Runner
 
-@Service.API.endpoint(port=1234)
+APPS_ROOT = os.environ.get("APPS_ROOT") or "/opt/piroq/apps"
+
 class Manager(Service.base):
 
   def __init__(self):
-    self.honchos = []
+    self.apps = {}
+    logging.info("managing apps from {0}".format(APPS_ROOT))
 
   def loop(self):
-    print("looping...")
+    self.check_apps()
+    self.check_for_updates()
     time.sleep(5)
 
-  def finalize(self):
-    logging.info("finalizing...")
-    for honcho in self.honchos:
-      honcho.handle_signal(signal.SIGTERM)
+  def check_apps(self):
+    _, dirs, _ = next(os.walk(APPS_ROOT))
+    # detect new apps
+    for dir in dirs:
+      if not dir in self.apps:
+        self.apps[dir] = Runner(os.path.join(APPS_ROOT, dir)).run()
+    # detect removed apps
+    for dir in list(self.apps):
+      if not dir in dirs:
+        self.apps[dir].stop()
+        self.apps.pop(dir)
 
-  @Service.API.handle("start")
-  def handle_start(self, arg):
-    app = json.loads(arg)
-    logging.info("starting app from: {0}".format(app))
-    honcho = Honcho(app_root=app, handle_signals=False)
-    self.honchos.append(honcho)
-    thread = Thread(target=honcho.start)
-    thread.start()
-    time.sleep(0.1)
+  def check_for_updates(self):
+    for name in self.apps:
+      self.apps[name].check()
+
+  def finalize(self):
+    logging.info("terminating all apps")
+    for name in self.apps:
+      self.apps[name].stop()

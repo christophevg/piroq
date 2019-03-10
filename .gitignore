@@ -1,2 +1,10 @@
-venv
+venv*
+dist
+*.egg-info
 *.pyc
+build
+.coverage
+.tox
+docs/_build
+.env
+apps
