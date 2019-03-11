@@ -24,7 +24,8 @@ CLASSIFIERS      = [
 INSTALL_REQUIRES = [
   "python-dotenv",
   "servicefactory",
-  "procfile-manager"
+  "procfile-manager",
+  "GitPython"
 ]
 ENTRY_POINTS = {
   "console_scripts": [

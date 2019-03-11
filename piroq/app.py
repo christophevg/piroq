@@ -24,10 +24,6 @@ class Runner(object):
     time.sleep(0.1) # else the thread doestn't start properly ?!
     return self
 
-  def check(self):
-    # TODO: check if origin has been updated, if so stop, pull and (re)start
-    return self
-
   def stop(self):
     self.manager.stop()
     return self
