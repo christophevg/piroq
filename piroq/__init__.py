@@ -6,7 +6,7 @@ import logging
 
 # read environment from .env file
 
-load_dotenv()
+load_dotenv(".env")
 
 # setup logging: formatting and console logger
 
