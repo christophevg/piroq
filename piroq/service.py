@@ -73,7 +73,8 @@ class Manager(Service.base):
     try: name = json.loads(name)
     except: pass
     logging.info("starting app {0}".format(name))
-    self.apps[name] = Runner(os.path.join(APPS_ROOT, name)).run()
+    app = Runner(os.path.join(APPS_ROOT, name)).run()
+    if not app is None: self.apps[name] = app
 
   @Service.API.handle("stop")
   def stop(self, name):
