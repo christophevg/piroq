@@ -24,5 +24,5 @@ else:
   consoleHandler.setFormatter(formatter)
   logger.addHandler(consoleHandler)
 
-LOG_LEVEL = os.environ.get("LOG_LEVEL") or "WARN"
+LOG_LEVEL = os.environ.get("LOG_LEVEL") or "INFO"
 logger.setLevel(logging.getLevelName(LOG_LEVEL))
