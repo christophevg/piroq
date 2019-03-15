@@ -28,7 +28,12 @@ class Manager(Service.base):
     time.sleep(LOOP_INTERVAL)
 
   def check_apps(self):
-    _, dirs, _ = next(os.walk(APPS_ROOT))
+    try:
+      _, dirs, _ = next(os.walk(APPS_ROOT))
+    except:
+      logging.error("could not check {0}".format(APPS_ROOT))
+      return
+
     # detect new apps
     for dir in dirs:
       if not dir in self.apps:
