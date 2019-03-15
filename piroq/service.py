@@ -96,4 +96,3 @@ class Manager(Service.base):
     logging.info("terminating all apps")
     for name in self.apps:
       self.stop(name)
-    logging.info("done")
